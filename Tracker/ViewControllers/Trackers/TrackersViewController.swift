@@ -38,15 +38,6 @@ final class TrackersViewController: UIViewController {
         return label
     }()
     
-//    private let plusButton: UIBarButtonItem = {
-//        let button = UIBarButtonItem(
-//            image: UIImage(systemName: "plus"),
-//            style: .plain,
-//            target: nil,
-//            action: nil
-//        )
-//        return button
-//    }()
     private lazy var plusButtonView: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -179,17 +170,7 @@ final class TrackersViewController: UIViewController {
         navigationController.modalPresentationStyle = .fullScreen
         present(navigationController, animated: true)
     }
-    
-//    private func showPlaceholder() {
-//        placeholderImageView.isHidden = false
-//        placeholderLabel.isHidden = false
-//    }
-//    
-//    func hidePlaceholder() {
-//        placeholderImageView.isHidden = true
-//        placeholderLabel.isHidden = true
-//    }
-    
+
     func addTracker(_ tracker: Tracker, to categoryTitle: String) {
         let updatedCategories = categories.map { category in
             if category.title == categoryTitle {
