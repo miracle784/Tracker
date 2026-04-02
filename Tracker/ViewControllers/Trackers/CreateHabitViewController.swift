@@ -7,7 +7,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     private var selectedCategoryTitle: String = "Важное"
     private var selectedSchedule: [Weekday] = []
 
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Новая привычка"
         label.font = .systemFont(ofSize: 16, weight: .medium)
@@ -16,7 +16,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         return label
     }()
 
-    private let nameTextField: UITextField = {
+    private lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Введите название трекера"
         textField.backgroundColor = UIColor.secondarySystemBackground
