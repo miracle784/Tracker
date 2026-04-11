@@ -109,10 +109,10 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     private let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Отменить", for: .normal)
-        button.setTitleColor(UIColor(resource: .red), for: .normal)
+        button.setTitleColor(UIColor(resource: .customRed), for: .normal)
         button.layer.cornerRadius = 16
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor(resource: .red).cgColor
+        button.layer.borderColor = UIColor(resource: .customRed).cgColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -132,7 +132,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         let label = UILabel()
         label.text = "Ограничение 38 символов"
         label.font = .systemFont(ofSize: 17, weight: .regular)
-        label.textColor = UIColor(resource: .red)
+        label.textColor = UIColor(resource: .customRed)
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true

@@ -1,32 +1,54 @@
-
 import UIKit
 
 final class RootTabBarController: UITabBarController {
 
+    private let trackerStore: TrackerStore
+    private let trackerCategoryStore: TrackerCategoryStore
+    private let trackerRecordStore: TrackerRecordStore
+
+    init(
+        trackerStore: TrackerStore,
+        trackerCategoryStore: TrackerCategoryStore,
+        trackerRecordStore: TrackerRecordStore
+    ) {
+        self.trackerStore = trackerStore
+        self.trackerCategoryStore = trackerCategoryStore
+        self.trackerRecordStore = trackerRecordStore
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
-            super.viewDidLoad()
-            setupTabs()
-        }
+        super.viewDidLoad()
+        setupTabs()
+    }
 
-        private func setupTabs() {
-            let trackersVC = TrackersViewController()
-            let statisticsVC = StatisticsViewController()
+    private func setupTabs() {
+        let trackersVC = TrackersViewController(
+            trackerStore: trackerStore,
+            trackerCategoryStore: trackerCategoryStore,
+            trackerRecordStore: trackerRecordStore
+        )
+        let statisticsVC = StatisticsViewController()
 
-            let trackersNav = UINavigationController(rootViewController: trackersVC)
+        let trackersNav = UINavigationController(rootViewController: trackersVC)
 
-            trackersNav.tabBarItem = UITabBarItem(
-                title: "Трекеры",
-                image: UIImage(resource: .trackers),
-                selectedImage: nil
-            )
-          
-            statisticsVC.tabBarItem = UITabBarItem(
-                title: "Статистика",
-                image: UIImage(resource: .stats),
-                selectedImage: nil
-            )
+        trackersNav.tabBarItem = UITabBarItem(
+            title: "Трекеры",
+            image: UIImage(resource: .trackers),
+            selectedImage: nil
+        )
 
-            viewControllers = [trackersNav, statisticsVC]
-        }
+        statisticsVC.tabBarItem = UITabBarItem(
+            title: "Статистика",
+            image: UIImage(resource: .stats),
+            selectedImage: nil
+        )
+
+        viewControllers = [trackersNav, statisticsVC]
+    }
 }
-
