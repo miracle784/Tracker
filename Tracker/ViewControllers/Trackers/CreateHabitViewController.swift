@@ -2,37 +2,17 @@ import UIKit
 
 final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     
+    private enum Constants {
+        static let trackerNameMaxLength = 38
+    }
+    
     var onCreate: ((Tracker, String) -> Void)?
     
     private var optionsTopConstraint: NSLayoutConstraint?
     private var selectedCategoryTitle: String = "Важное"
     private var selectedSchedule: [Weekday] = []
-    private let emojis: [String] = [
-        "🙂", "😻", "🌺", "🐶", "❤️", "😱",
-        "😇", "😡", "🥶", "🤔", "🙌", "🍔",
-        "🥦", "🏓", "🥇", "🎸", "🏝", "😪"
-    ]
-    
-    private let colors: [UIColor] = [
-        UIColor(resource: .color1),
-        UIColor(resource: .color2),
-        UIColor(resource: .color3),
-        UIColor(resource: .color4),
-        UIColor(resource: .color5),
-        UIColor(resource: .color6),
-        UIColor(resource: .color7),
-        UIColor(resource: .color8),
-        UIColor(resource: .color9),
-        UIColor(resource: .color10),
-        UIColor(resource: .color11),
-        UIColor(resource: .color12),
-        UIColor(resource: .color13),
-        UIColor(resource: .color14),
-        UIColor(resource: .color15),
-        UIColor(resource: .color16),
-        UIColor(resource: .color17),
-        UIColor(resource: .color18)
-    ]
+    private let emojis = MockData.emojis
+    private let colors = MockData.colors
     
     private var selectedEmojiIndexPath: IndexPath?
     private var selectedColorIndexPath: IndexPath?
@@ -87,7 +67,6 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.dataSource = self
         collectionView.delegate = self
-      //  collectionView.allowsMultipleSelection = false
         
         collectionView.register(
             EmojiCollectionViewCell.self,
@@ -308,18 +287,14 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         updateCreateButtonState()
     }
     
-    func textField(
-        _ textField: UITextField,
-        shouldChangeCharactersIn range: NSRange,
-        replacementString string: String
-    ) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String ) -> Bool {
         guard let currentText = textField.text,
               let textRange = Range(range, in: currentText) else {
             return true
         }
         
         let updatedText = currentText.replacingCharacters(in: textRange, with: string)
-        let isValid = updatedText.count <= 38
+        let isValid = updatedText.count <= Constants.trackerNameMaxLength
         
         updateErrorState(showError: !isValid)
         
@@ -400,7 +375,7 @@ extension CreateHabitViewController: UICollectionViewDataSource {
             ) as? EmojiCollectionViewCell else {
                 return UICollectionViewCell()
             }
-
+            
             cell.configure(
                 with: emojis[indexPath.item],
                 isChosen: indexPath == selectedEmojiIndexPath
@@ -413,7 +388,7 @@ extension CreateHabitViewController: UICollectionViewDataSource {
             ) as? ColorCollectionViewCell else {
                 return UICollectionViewCell()
             }
-
+            
             cell.configure(
                 with: colors[indexPath.item],
                 isChosen: indexPath == selectedColorIndexPath
@@ -446,7 +421,7 @@ extension CreateHabitViewController: UICollectionViewDelegate {
         if indexPath.section == 0 {
             let previous = selectedEmojiIndexPath
             selectedEmojiIndexPath = indexPath
-
+            
             var itemsToReload = [indexPath]
             if let previous, previous != indexPath {
                 itemsToReload.append(previous)
@@ -455,14 +430,14 @@ extension CreateHabitViewController: UICollectionViewDelegate {
         } else {
             let previous = selectedColorIndexPath
             selectedColorIndexPath = indexPath
-
+            
             var itemsToReload = [indexPath]
             if let previous, previous != indexPath {
                 itemsToReload.append(previous)
             }
             collectionView.reloadItems(at: itemsToReload)
         }
-
+        
         updateCreateButtonState()
     }
 }

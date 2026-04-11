@@ -13,7 +13,7 @@ final class CoreDataStack {
         persistentContainer = NSPersistentContainer(name: "TrackerModel")
         persistentContainer.loadPersistentStores { _, error in
             if let error {
-                fatalError("Failed to load persistent stores: \(error)")
+                assertionFailure("Failed to load persistent stores: \(error)")
             }
         }
     }
