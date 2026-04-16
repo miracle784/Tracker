@@ -8,7 +8,7 @@ final class NewCategoryViewController: UIViewController {
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Введите название категории"
+        textField.placeholder = NSLocalizedString("new_category_placeholder", comment: "Placeholder for category name")
         textField.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
         textField.layer.cornerRadius = 16
         textField.font = .systemFont(ofSize: 17, weight: .regular)
@@ -20,7 +20,7 @@ final class NewCategoryViewController: UIViewController {
     
     private let doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Готово", for: .normal)
+        button.setTitle(NSLocalizedString("done_button", comment: "Done button title"), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemGray3
         button.layer.cornerRadius = 16
@@ -43,7 +43,7 @@ final class NewCategoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Новая категория"
+        title = NSLocalizedString("new_category_title", comment: "New category screen title")
         
         setupViews()
         setupConstraints()
