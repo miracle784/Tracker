@@ -6,6 +6,9 @@ final class TrackersViewController: UIViewController {
     private let trackerCategoryStore: TrackerCategoryStore
     private let trackerRecordStore: TrackerRecordStore
     
+    private var visibleCategories: [TrackerCategory] = []
+    private var searchText: String = ""
+    
     private var categories: [TrackerCategory] = []
     private var completedTrackers: [TrackerRecord] = []
     private var currentDate: Date = Date()
@@ -59,22 +62,6 @@ final class TrackersViewController: UIViewController {
         return collectionView
     }()
     
-    private var visibleCategories: [TrackerCategory] {
-        let selectedWeekday = currentDate.trackerWeekday
-        
-        return categories.compactMap { category in
-            let filteredTrackers = category.trackers.filter { tracker in
-                tracker.schedule.contains(selectedWeekday)
-            }
-            
-            if filteredTrackers.isEmpty {
-                return nil
-            } else {
-                return TrackerCategory(title: category.title, trackers: filteredTrackers)
-            }
-        }
-    }
-    
     init(
         trackerStore: TrackerStore,
         trackerCategoryStore: TrackerCategoryStore,
@@ -106,8 +93,7 @@ final class TrackersViewController: UIViewController {
     private func loadData() {
         categories = trackerCategoryStore.fetchCategories()
         completedTrackers = trackerRecordStore.fetchRecords()
-        collectionView.reloadData()
-        updateVisibleState()
+        applyFilters()
     }
     
     private func setupUI() {
@@ -135,6 +121,7 @@ final class TrackersViewController: UIViewController {
             placeholderLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
+        searchBar.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(TrackerCell.self, forCellWithReuseIdentifier: TrackerCell.reuseIdentifier)
@@ -188,6 +175,35 @@ final class TrackersViewController: UIViewController {
         }
     }
     
+    private func applyFilters() {
+        let selectedWeekday = currentDate.trackerWeekday
+        let normalizedSearchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+        visibleCategories = categories.compactMap { category in
+            let filteredTrackers = category.trackers.filter { tracker in
+                let matchesWeekday = tracker.schedule.contains(selectedWeekday)
+
+                let matchesSearchText: Bool
+                if normalizedSearchText.isEmpty {
+                    matchesSearchText = true
+                } else {
+                    matchesSearchText = tracker.name.lowercased().contains(normalizedSearchText)
+                }
+
+                return matchesWeekday && matchesSearchText
+            }
+
+            if filteredTrackers.isEmpty {
+                return nil
+            } else {
+                return TrackerCategory(title: category.title, trackers: filteredTrackers)
+            }
+        }
+
+        collectionView.reloadData()
+        updateVisibleState()
+    }
+    
     @objc private func addTrackerButtonTapped() {
         let createHabitViewController = CreateHabitViewController()
         
@@ -208,8 +224,7 @@ final class TrackersViewController: UIViewController {
     
     @objc private func dateChanged() {
         currentDate = datePicker.date
-        collectionView.reloadData()
-        updateVisibleState()
+        applyFilters()
     }
     
     private func updateVisibleState() {
@@ -291,5 +306,17 @@ extension TrackersViewController: TrackerCategoryStoreDelegate {
 extension TrackersViewController: TrackerRecordStoreDelegate {
     func storeDidUpdateRecords() {
         loadData()
+    }
+}
+
+extension TrackersViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+        applyFilters()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.searchText = ""
+        applyFilters()
     }
 }
