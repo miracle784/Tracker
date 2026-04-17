@@ -31,8 +31,8 @@ final class ScheduleViewController: UIViewController {
     private let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("done_button", comment: "Done button title"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.setTitleColor(.systemBackground, for: .normal)
+        button.backgroundColor = .label
         button.layer.cornerRadius = 16
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

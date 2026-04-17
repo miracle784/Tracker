@@ -8,8 +8,13 @@ final class NewCategoryViewController: UIViewController {
     
     private let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = NSLocalizedString("new_category_placeholder", comment: "Placeholder for category name")
-        textField.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        textField.backgroundColor = .secondarySystemBackground
+        textField.textColor = .label
+        textField.tintColor = .label
+        textField.attributedPlaceholder = NSAttributedString(
+            string: NSLocalizedString("new_category_placeholder", comment: "Placeholder for category name"),
+            attributes: [.foregroundColor: UIColor.secondaryLabel]
+        )
         textField.layer.cornerRadius = 16
         textField.font = .systemFont(ofSize: 17, weight: .regular)
         textField.clearButtonMode = .whileEditing
@@ -21,7 +26,7 @@ final class NewCategoryViewController: UIViewController {
     private let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("done_button", comment: "Done button title"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.systemBackground, for: .normal)
         button.backgroundColor = .systemGray3
         button.layer.cornerRadius = 16
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -42,7 +47,7 @@ final class NewCategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = NSLocalizedString("new_category_title", comment: "New category screen title")
         
         setupViews()
@@ -83,7 +88,8 @@ final class NewCategoryViewController: UIViewController {
     private func bindViewModel() {
         viewModel.onButtonStateChanged = { [weak self] isEnabled in
             self?.doneButton.isEnabled = isEnabled
-            self?.doneButton.backgroundColor = isEnabled ? .black : .systemGray3
+            self?.doneButton.backgroundColor = isEnabled ? .label : .systemGray3
+            self?.doneButton.setTitleColor(isEnabled ? .systemBackground : .white, for: .normal)
         }
         
         viewModel.onCategoryCreated = { [weak self] in

@@ -11,7 +11,7 @@ final class CategoriesViewController: UIViewController {
         let tableView = UITableView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: CategoryTableViewCell.reuseIdentifier)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor(resource: .ypBackgroundDay)
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.layer.cornerRadius = 16
         tableView.layer.masksToBounds = true
         tableView.isScrollEnabled = false
@@ -30,7 +30,7 @@ final class CategoriesViewController: UIViewController {
         let label = UILabel()
         label.text = NSLocalizedString("categories_placeholder", comment: "Empty categories placeholder")
         label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .black
+        label.textColor = .label
         label.numberOfLines = 2
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -40,8 +40,8 @@ final class CategoriesViewController: UIViewController {
     private let addCategoryButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle(NSLocalizedString("add_category_button", comment: "Add category button"), for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.setTitleColor(.systemBackground, for: .normal)
+        button.backgroundColor = .label
         button.layer.cornerRadius = 16
         button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ final class CategoriesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = NSLocalizedString("categories_title", comment: "Categories screen title")
         
         setupViews()

@@ -8,7 +8,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     
     var onCreate: ((Tracker, String) -> Void)?
     var onUpdate: ((Tracker, String) -> Void)?
-
+    
     private let trackerToEdit: Tracker?
     private let editingCategoryTitle: String?
     
@@ -34,9 +34,14 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var nameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = NSLocalizedString("tracker_name_placeholder", comment: "Tracker name placeholder")
         textField.backgroundColor = UIColor.secondarySystemBackground
         textField.layer.cornerRadius = 16
+        textField.textColor = .label
+        textField.tintColor = .label
+        textField.attributedPlaceholder = NSAttributedString(
+            string: NSLocalizedString("tracker_name_placeholder", comment: "Tracker name placeholder"),
+            attributes: [.foregroundColor: UIColor.secondaryLabel]
+        )
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 1))
         textField.leftViewMode = .always
@@ -166,7 +171,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-        
+    
     private func setupUI() {
         view.backgroundColor = .systemBackground
         
@@ -282,27 +287,27 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     
     private func configureInitialDataIfNeeded() {
         guard let trackerToEdit else { return }
-
+        
         nameTextField.text = trackerToEdit.name
         selectedCategoryTitle = editingCategoryTitle
         selectedSchedule = trackerToEdit.schedule
-
+        
         if let emojiIndex = emojis.firstIndex(of: trackerToEdit.emoji) {
             selectedEmojiIndexPath = IndexPath(item: emojiIndex, section: 0)
         }
-
+        
         if let colorIndex = colors.firstIndex(where: { $0.hexString == trackerToEdit.color.hexString }) {
             selectedColorIndexPath = IndexPath(item: colorIndex, section: 1)
         }
-
+        
         titleLabel.text = NSLocalizedString("edit_tracker_title", comment: "Edit tracker title")
         createButton.setTitle(NSLocalizedString("save_button", comment: "Save button title"), for: .normal)
-
+        
         if let completedDaysCount {
             daysCountLabel.isHidden = false
             daysCountLabel.text = daysCountString(for: completedDaysCount)
         }
-
+        
         updateCategoryButtonTitle()
         updateScheduleButtonTitle()
         updateCreateButtonState()
@@ -312,7 +317,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
     private func daysCountString(for count: Int) -> String {
         let remainder10 = count % 10
         let remainder100 = count % 100
-
+        
         let word: String
         if remainder100 >= 11 && remainder100 <= 14 {
             word = "дней"
@@ -323,7 +328,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         } else {
             word = "дней"
         }
-
+        
         return "\(count) \(word)"
     }
     
@@ -372,7 +377,7 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         else {
             return
         }
-
+        
         let tracker = Tracker(
             id: trackerToEdit?.id ?? UUID(),
             name: name,
@@ -380,13 +385,13 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
             emoji: emojis[selectedEmojiIndexPath.item],
             schedule: selectedSchedule
         )
-
+        
         if isEditingTracker {
             onUpdate?(tracker, categoryTitle)
         } else {
             onCreate?(tracker, categoryTitle)
         }
-
+        
         dismiss(animated: true)
     }
     
@@ -428,7 +433,8 @@ final class CreateHabitViewController: UIViewController, UITextFieldDelegate {
         let isEnabled = hasName && hasCategory && hasSchedule && hasEmoji && hasColor
         
         createButton.isEnabled = isEnabled
-        createButton.backgroundColor = isEnabled ? .black : .systemGray3
+        createButton.backgroundColor = isEnabled ? .label : .systemGray3
+        createButton.setTitleColor(isEnabled ? .systemBackground : .white, for: .normal)
     }
     
     private func updateScheduleButtonTitle() {
@@ -559,8 +565,8 @@ extension CreateHabitViewController: UICollectionViewDataSource {
         }
         
         header.configure(with: indexPath.section == 0
-            ? NSLocalizedString("emoji_title", comment: "Emoji section title")
-            : NSLocalizedString("color_title", comment: "Color section title"))
+                         ? NSLocalizedString("emoji_title", comment: "Emoji section title")
+                         : NSLocalizedString("color_title", comment: "Color section title"))
         return header
     }
 }

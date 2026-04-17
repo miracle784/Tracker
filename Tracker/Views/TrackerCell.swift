@@ -50,7 +50,7 @@ final class TrackerCell: UICollectionViewCell {
         countLabel.font = .systemFont(ofSize: 12, weight: .medium)
         countLabel.textColor = .label
         
-        doneButton.tintColor = .white
+        doneButton.tintColor = .systemBackground
         doneButton.layer.cornerRadius = 17
         doneButton.clipsToBounds = true
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
