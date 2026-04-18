@@ -154,11 +154,11 @@ final class CategoriesViewController: UIViewController {
     }
     
     private func editCategory(_ oldTitle: String) {
-        let viewModel = EditCategoryViewModel(
+        let editViewModel = EditCategoryViewModel(
             categoryStore: viewModel.categoryStore,
             oldTitle: oldTitle
         )
-        let viewController = EditCategoryViewController(viewModel: viewModel)
+        let viewController = EditCategoryViewController(viewModel: editViewModel)
 
         viewController.onCategoryUpdated = { [weak self] in
             self?.viewModel.loadCategories()

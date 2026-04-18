@@ -24,7 +24,7 @@ final class NewCategoryViewModel {
             try categoryStore.addCategory(title: categoryTitle)
             onCategoryCreated?()
         } catch {
-            print("Не удалось создать категорию: \(error)")
+            print("Failed to create category: \(error)")
         }
     }
 }
