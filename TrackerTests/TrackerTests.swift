@@ -4,48 +4,63 @@ import XCTest
 
 final class TrackerTests: XCTestCase {
     
+    private var coreDataStack: CoreDataStack!
+    private var trackerStore: TrackerStore!
+    private var trackerCategoryStore: TrackerCategoryStore!
+    private var trackerRecordStore: TrackerRecordStore!
+    
     override func setUp() {
-            super.setUp()
-            isRecording = false
-        }
+        super.setUp()
+        isRecording = false
+        
+        coreDataStack = CoreDataStack()
+        trackerCategoryStore = TrackerCategoryStore(context: coreDataStack.context)
+        trackerStore = TrackerStore(context: coreDataStack.context)
+        trackerRecordStore = TrackerRecordStore(context: coreDataStack.context)
+    }
+    
+    override func tearDown() {
+        trackerRecordStore = nil
+        trackerStore = nil
+        trackerCategoryStore = nil
+        coreDataStack = nil
+        super.tearDown()
+    }
     
     func testTrackersViewControllerLight() {
-        
-        let coreDataStack = CoreDataStack()
-        let trackerCategoryStore = TrackerCategoryStore(context: coreDataStack.context)
-        let trackerStore = TrackerStore(context: coreDataStack.context)
-        let trackerRecordStore = TrackerRecordStore(context: coreDataStack.context)
-
+        // Given
         let viewController = TrackersViewController(
             trackerStore: trackerStore,
             trackerCategoryStore: trackerCategoryStore,
             trackerRecordStore: trackerRecordStore
         )
-
         let navigationController = UINavigationController(rootViewController: viewController)
-
+        
+        // When
+        let result = navigationController
+        
+        // Then
         assertSnapshot(
-            of: navigationController,
+            of: result,
             as: .image(traits: .init(userInterfaceStyle: .light))
         )
     }
     
     func testTrackersViewControllerDark() {
-        let coreDataStack = CoreDataStack()
-        let trackerCategoryStore = TrackerCategoryStore(context: coreDataStack.context)
-        let trackerStore = TrackerStore(context: coreDataStack.context)
-        let trackerRecordStore = TrackerRecordStore(context: coreDataStack.context)
-
+        // Given
         let viewController = TrackersViewController(
             trackerStore: trackerStore,
             trackerCategoryStore: trackerCategoryStore,
             trackerRecordStore: trackerRecordStore
         )
-
         let navigationController = UINavigationController(rootViewController: viewController)
-
+        
+        // When
+        let result = navigationController
+        
+        // Then
         assertSnapshot(
-            of: navigationController,
+            of: result,
             as: .image(traits: .init(userInterfaceStyle: .dark))
         )
     }
