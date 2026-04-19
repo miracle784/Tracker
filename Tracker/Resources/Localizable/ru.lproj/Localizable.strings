@@ -1,0 +1,77 @@
+// MARK: - Onboarding
+"onboarding_first_title" = "Отслеживайте только\nто, что хотите";
+"onboarding_second_title" = "Даже если это\nне литры воды и йога";
+"onboarding_button" = "Вот это технологии!";
+
+// MARK: - Categories
+"new_category_title" = "Новая категория";
+"new_category_placeholder" = "Введите название категории";
+"categories_title" = "Категории";
+"add_category_button" = "Добавить категорию";
+"edit_category_title" = "Редактирование категории";
+"categories_placeholder" = "Привычки и события можно\nобъединить по смыслу";
+
+// MARK: - Common Actions
+"done_button" = "Готово";
+"cancel_button" = "Отменить";
+"create_button" = "Создать";
+"ok_action" = "ОК";
+"save_button" = "Сохранить";
+"edit_action" = "Редактировать";
+"delete_action" = "Удалить";
+
+// MARK: - Tracker Creation
+"create_habit_title" = "Новая привычка";
+"tracker_name_placeholder" = "Введите название трекера";
+"tracker_name_limit" = "Ограничение 38 символов";
+"category_title" = "Категория";
+"schedule_title" = "Расписание";
+"every_day" = "Каждый день";
+"emoji_title" = "Эмодзи";
+"color_title" = "Цвет";
+"edit_tracker_title" = "Редактирование привычки";
+
+// MARK: - Trackers List
+"trackers_title" = "Трекеры";
+"search_placeholder" = "Поиск";
+"trackers_placeholder" = "Что будем отслеживать?";
+
+// MARK: - Schedule
+"schedule_screen_title" = "Расписание";
+
+// MARK: - Statistics
+"statistics_title" = "Статистика";
+"statistics_empty_placeholder" = "Анализировать пока нечего";
+"statistics_completed_title" = "Трекеров завершено";
+
+// MARK: - Filters
+"filters_button" = "Фильтры";
+"filters_title" = "Фильтры";
+"all_trackers_filter" = "Все трекеры";
+"today_trackers_filter" = "Трекеры на сегодня";
+"completed_filter" = "Завершённые";
+"not_completed_filter" = "Не завершённые";
+"nothing_found_placeholder" = "Ничего не найдено";
+
+// MARK: - Weekdays (Full)
+"weekday_monday" = "Понедельник";
+"weekday_tuesday" = "Вторник";
+"weekday_wednesday" = "Среда";
+"weekday_thursday" = "Четверг";
+"weekday_friday" = "Пятница";
+"weekday_saturday" = "Суббота";
+"weekday_sunday" = "Воскресенье";
+
+// MARK: - Weekdays (Short)
+"weekday_short_monday" = "Пн";
+"weekday_short_tuesday" = "Вт";
+"weekday_short_wednesday" = "Ср";
+"weekday_short_thursday" = "Чт";
+"weekday_short_friday" = "Пт";
+"weekday_short_saturday" = "Сб";
+"weekday_short_sunday" = "Вс";
+
+// MARK: - Alerts
+"delete_tracker_confirmation" = "Вы уверены, что хотите удалить трекер?";
+"category_delete_not_empty_title" = "Эта категория не пустая";
+"category_delete_not_empty_message" = "Сначала удалите из неё трекеры, а затем саму категорию";

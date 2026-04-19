@@ -24,7 +24,7 @@ final class OnboardingContentViewController: UIViewController {
     
     private let actionButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Вот это технологии!", for: .normal)
+        button.setTitle(NSLocalizedString("onboarding_button", comment: "Onboarding continue button"), for: .normal)
         button.backgroundColor = UIColor(resource: .ypBlackDay)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 16

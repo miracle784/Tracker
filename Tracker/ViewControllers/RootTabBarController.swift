@@ -33,18 +33,18 @@ final class RootTabBarController: UITabBarController {
             trackerCategoryStore: trackerCategoryStore,
             trackerRecordStore: trackerRecordStore
         )
-        let statisticsVC = StatisticsViewController()
+        let statisticsVC = StatisticsViewController(trackerRecordStore: trackerRecordStore)
 
         let trackersNav = UINavigationController(rootViewController: trackersVC)
 
         trackersNav.tabBarItem = UITabBarItem(
-            title: "Трекеры",
+            title: NSLocalizedString("trackers_title", comment: "Trackers tab title"),
             image: UIImage(resource: .trackers),
             selectedImage: nil
         )
 
         statisticsVC.tabBarItem = UITabBarItem(
-            title: "Статистика",
+            title: NSLocalizedString("statistics_title", comment: "Statistics tab title"),
             image: UIImage(resource: .stats),
             selectedImage: nil
         )
